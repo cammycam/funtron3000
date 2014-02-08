@@ -28,12 +28,12 @@ module.exports = function(grunt) {
         uglify: {
             compile: {
                 files: {
-                    'javascript/out.min.js': ['javascript/*.js']
+                    'js/out.min.js': ['js/*.js']
                 }
             }
         },
         clean:
-            ['docs', 'js']
+            ['docs', 'js/out.min.js']
 
 
     });
