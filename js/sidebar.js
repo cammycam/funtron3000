@@ -1,3 +1,4 @@
-$(document).ready(function() {
-	$('#idofpanel').panel('toggle');
+$(document).ready(function () {
+    "use strict";
+    $('#idofpanel').panel('toggle');
 });
