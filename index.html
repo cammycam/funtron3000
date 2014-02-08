@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-	<title>Group 9</title>
-	<link rel="stylesheet" href="css/map.css">
-	<link rel="stylesheet" href="sidr-package-1.2.1/stylesheets/jquery.sidr.dark.css">
-	<script src="javascript/jquery-2.1.0.min.js"></script>
-	<script src="sidr-package-1.2.1/jquery.sidr.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script src="javascript/map.js"></script>
-	<script src="javascript/sidebar.js"></script>
-</head>
-<body>
-
-	<a id="simple-menu" href="#sidr">Toggle menu</a>
-
-	<div id="map_canvas"/>
-
-    <!-- Include the Sidr JS -->
-	 
-	<div id="sidr">
-	  <ul>
-		<li><a href="#">Profile</a></li>
-		<li class="active"><a href="#">Interests</a></li>
-		<li><a href="#">Badges</a></li>
-	  </ul>
-	</div>
-
-</body>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Group 9</title>
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.min.css">
+		<link rel="stylesheet" type="text/css" href="css/map.css">
+		<script src="js/jquery-2.0.2.min.js"></script>
+		<script src="js/jquery.mobile-1.4.0.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script src="js/map.js"></script>
+		<script src="js/sidebar.js"></script>
+	</head>
+	<body>
+		<div data-role="page" data-theme="b">
+			<div data-role="panel" id="mypanel" data-theme="b" data-display="push">
+				<div data-role="panel-content">
+					<h3>Menu</h3>
+					<ul>
+						<li><a href="#">Profile</a></li>
+						<li><a href="#">Interests</a></li>
+						<li><a href="#">Badges</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="main" class="ui-content">
+				<a href="#mypanel" id="idofpanel" data-role="button" data-inline="true" data-icon="bars">Toggle Menu</a>
+				<div id="map_canvas"/>
+			</div>
+		</div>
+	</body>
 </html>
