@@ -1,3 +1,3 @@
 $(document).ready(function() {
-	$('#simple-menu').sidr();
+	$('#idofpanel').panel('toggle');
 });
