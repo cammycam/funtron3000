@@ -1,9 +1,18 @@
 function initialize() {
 
     "use strict";
+
+    //get location
+    navigator.geolocation.getCurrentPosition(drawMap);
+}
+
+function drawMap(position) {
+
+    "use strict";
+
     var map = new google.maps.Map($('#map_canvas')[0], {
-            center: new google.maps.LatLng(44.65742, -63.573868),
-            zoom: 12,
+            center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+            zoom: 14,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }).set('styles', [
             {
@@ -23,6 +32,7 @@ function initialize() {
                 elementType: 'geometry',
                 stylers: [{ hue: '#fff700' }, { lightness: -15 }, { saturation: 99 }]
             }]);
+
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
