@@ -3,15 +3,18 @@ function initialize() {
     "use strict";
 
     //get location
-    if (navigator.geolocation) 
-        navigator.geolocation.getCurrentPosition(drawMap);
+    if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(drawMap,showError);
+		}
     else
-        document.getElementById('map_canvas').innerHTML = "DERP";
+        document.getElementById('map_canvas').innerHTML = "Error with geolocation.";
 }
 
 function drawMap(position) {
 
     "use strict";
+	
+	document.getElementById('map_canvas').innerHTML = "DERP3";
 
     var map = new google.maps.Map($('#map_canvas')[0], {
             center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
@@ -38,4 +41,23 @@ function drawMap(position) {
 
 }
 
+function showError(error)
+  {
+  switch(error.code) 
+    {
+    case error.PERMISSION_DENIED:
+      document.getElementById('map_canvas').innerHTML="User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      document.getElementById('map_canvas').innerHTML="Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      document.getElementById('map_canvas').innerHTML="The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      document.getElementById('map_canvas').innerHTML="An unknown error occurred."
+      break;
+    }
+  }
+  
 google.maps.event.addDomListener(window, 'load', initialize);
