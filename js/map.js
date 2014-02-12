@@ -3,7 +3,10 @@ function initialize() {
     "use strict";
 
     //get location
-    navigator.geolocation.getCurrentPosition(drawMap);
+    if (navigator.geolocation) 
+        navigator.geolocation.getCurrentPosition(drawMap);
+    else
+        document.getElementById('map_canvas').innerHTML = "DERP";
 }
 
 function drawMap(position) {
