@@ -1,4 +1,6 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+
+    "use strict";
 
     // Project configuration.
     grunt.initConfig({
@@ -9,21 +11,13 @@ module.exports = function(grunt) {
                 description: '<%= pkg.description %>',
                 version: '<%= pkg.version %>',
                 options: {
-                    paths: 'src',
+                    paths: 'js',
                     outdir: 'docs'
                 }
             }
-       },
-        jasmine: {
-            compile: {
-                src: 'src/**/*.js',
-                options: {
-                    specs: 'test/*Spec.js',
-                    template: 'test.tmpl',
-                    helpers: 'test/helpers/*.js',
-                    keepRunner: true
-                }
-            }
+        },
+        qunit: {
+            compile: ['test/**/*.html']
         },
         uglify: {
             compile: {
@@ -32,19 +26,15 @@ module.exports = function(grunt) {
                 }
             }
         },
-        clean:
-            ['docs', 'js/out.min.js']
-
-
+        clean: ['docs', 'js/out.min.js']
     });
- 
+
     // Load the plugins
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     // Default task(s).
-    grunt.registerTask('default', ['yuidoc', 'jasmine', 'uglify']);
-
+    grunt.registerTask('default', ['yuidoc', 'qunit', 'uglify']);
 };
