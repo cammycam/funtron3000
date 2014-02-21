@@ -23,7 +23,7 @@ function initialize() {
 		 * 
 		 * @event error.NOT_SUPPORTED
 		 **/
-        $('#map_canvas')[0].innerHTML = "Your browser does not support geolocation.";
+        $('#map-canvas')[0].innerHTML = "Your browser does not support geolocation.";
     }
 }
 
@@ -42,7 +42,7 @@ function drawMap(position) {
      * 
      * @attribute map
      **/
-    var map = new google.maps.Map($('#map_canvas')[0], {
+    var map = new google.maps.Map($('#map-canvas')[0], {
             center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
             zoom: 14,
             mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -83,7 +83,7 @@ function showError(error) {
          * @event error.PERMISSION_DENIED
          * @param {String} msg A description of the error
          **/
-        $('#map_canvas')[0].innerHTML = "User denied the request for Geolocation.";
+        $('#map-canvas')[0].innerHTML = "User denied the request for Geolocation.";
         break;
     case error.POSITION_UNAVAILABLE:
          /**
@@ -92,7 +92,7 @@ function showError(error) {
 		  * @event error.POSITION_UNAVAILABLE
           * @param {String} msg A description of the error
           **/
-        $('#map_canvas')[0].innerHTML = "Location information is unavailable.";
+        $('#map-canvas')[0].innerHTML = "Location information is unavailable.";
         break;
     case error.TIMEOUT:
          /**
@@ -101,7 +101,7 @@ function showError(error) {
           * @event error.TIMEOUT
           * @param {String} msg A description of the error
           **/
-        $('#map_canvas')[0].innerHTML = "The request to get user location timed out.";
+        $('#map-canvas')[0].innerHTML = "The request to get user location timed out.";
         break;
     case error.UNKNOWN_ERROR:
          /**
@@ -110,7 +110,7 @@ function showError(error) {
           * @event error.UNKNOWN_ERROR
           * @param {String} msg A description of the error
           **/
-        $('#map_canvas')[0].innerHTML = "An unknown error occurred.";
+        $('#map-canvas')[0].innerHTML = "An unknown error occurred.";
         break;
     }
 }

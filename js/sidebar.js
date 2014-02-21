@@ -10,5 +10,5 @@
      * 
      * @event toggle
      **/
-    $('#idofpanel').panel('toggle');
+    $('#toggle-panel-button').panel('toggle');
 });

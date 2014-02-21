@@ -15,8 +15,22 @@
 	</head>
 	<body>
 		<div id="qunit"></div>
-		<div id="qunit-fixture">
-			<div id="map_canvas"></div>
+		<div id="qunit-fixture"></div>
+		<div data-role="page" data-theme="b">
+			<div data-role="panel" id="sidebar-panel" data-theme="b" data-display="push">
+				<div data-role="panel-content">
+					<h3>Menu</h3>
+					<ul id="sidebar-menu">
+						<li><a href="#">Profile</a></li>
+						<li><a href="#">Interests</a></li>
+						<li><a href="#">Badges</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="main" class="ui-content">
+				<a href="#sidebar-panel" id="toggle-panel-button" data-role="button" data-inline="true" data-icon="bars">Toggle Menu</a>
+				<div id="map-canvas"></div>
+			</div>
 		</div>
 	</body>
 </html>

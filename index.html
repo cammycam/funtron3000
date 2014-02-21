@@ -13,10 +13,10 @@
 	</head>
 	<body>
 		<div data-role="page" data-theme="b">
-			<div data-role="panel" id="mypanel" data-theme="b" data-display="push">
+			<div data-role="panel" id="sidebar-panel" data-theme="b" data-display="push">
 				<div data-role="panel-content">
 					<h3>Menu</h3>
-					<ul>
+					<ul id="sidebar-menu">
 						<li><a href="#">Profile</a></li>
 						<li><a href="#">Interests</a></li>
 						<li><a href="#">Badges</a></li>
@@ -24,8 +24,8 @@
 				</div>
 			</div>
 			<div data-role="main" class="ui-content">
-				<a href="#mypanel" id="idofpanel" data-role="button" data-inline="true" data-icon="bars">Toggle Menu</a>
-				<div id="map_canvas"></div>
+				<a href="#sidebar-panel" id="toggle-panel-button" data-role="button" data-inline="true" data-icon="bars">Toggle Menu</a>
+				<div id="map-canvas"></div>
 			</div>
 		</div>
 	</body>
