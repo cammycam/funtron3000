@@ -12,17 +12,15 @@
  **/
 function initialize() {
 
-    "use strict";
-
     //get location
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(drawMap, showError);
     } else {
-		/**
-		 * Fired when the browser does not support geolocation
-		 * 
-		 * @event error.NOT_SUPPORTED
-		 **/
+                /**
+                 * Fired when the browser does not support geolocation
+                 * 
+                 * @event error.NOT_SUPPORTED
+                 **/
         $('#map-canvas').html("<p>Your browser does not support geolocation.</p>");
     }
 }
@@ -34,29 +32,21 @@ function initialize() {
  * @param {Object} a set of current coordinates
 **/
 function drawMap(position) {
-
-    "use strict";
-
     /**
      * The Map that is later put on screen
      * 
      * @attribute map
      **/
-
-    var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-    var map = new google.maps.Map($('#map-canvas').get(0), {
+    var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+        map = new google.maps.Map($('#map-canvas').get(0), {
             center: userPosition,
             zoom: 15
-        });
-
+        }),
     //spawn marker at dude/dudette's position
-    var userMarker = new google.maps.Marker({
-        position: userPosition,
-        map: map
-    });
-
-    userMarker.setMap(map);
+        userMarker = new google.maps.Marker({
+            position: userPosition,
+            map: map
+        }).setMap(map);
 }
 /**
  * Called when an error occurs, takes in an error object
@@ -66,8 +56,6 @@ function drawMap(position) {
 **/
 function showError(error) {
 
-    "use strict";
-    
     switch (error.code) {
     case error.PERMISSION_DENIED:
         /**
@@ -79,16 +67,16 @@ function showError(error) {
         $('#map-canvas').html("<p>User denied the request for Geolocation.</p>");
         break;
     case error.POSITION_UNAVAILABLE:
-         /**
+          /**
           * Fired when position cannot be found
           * 
-		  * @event error.POSITION_UNAVAILABLE
+          * @event error.POSITION_UNAVAILABLE
           * @param {String} msg A description of the error
           **/
         $('#map-canvas').html("<p>Location information is unavailable.</p>");
         break;
     case error.TIMEOUT:
-         /**
+          /**
           * Fired when a timeout occurs
           * 
           * @event error.TIMEOUT
