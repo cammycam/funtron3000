@@ -42,28 +42,21 @@ function drawMap(position) {
      * 
      * @attribute map
      **/
+
+    var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
     var map = new google.maps.Map($('#map-canvas').get(0), {
-            center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }).set('styles', [
-            {
-                featureType: 'road',
-                elementType: 'geometry',
-                stylers: [{ color: '#000000' }, { weight: 1.0 }]
-            }, {
-                featureType: 'road',
-                elementType: 'labels',
-                stylers: [{ saturation: -100 }, { invert_lightness: true }]
-            }, {
-                featureType: 'landscape',
-                elementType: 'geometry',
-                stylers: [{ hue: '#ffff00' }, { gamma: 1.4 }, { saturation: 82 }, { lightness: 96 }]
-            }, {
-                featureType: 'poi.school',
-                elementType: 'geometry',
-                stylers: [{ hue: '#fff700' }, { lightness: -15 }, { saturation: 99 }]
-            }]);
+            center: userPosition,
+            zoom: 15
+        });
+
+    //spawn marker at dude/dudette's position
+    var userMarker = new google.maps.Marker({
+        position: userPosition,
+        map: map
+    });
+
+    userMarker.setMap(map);
 }
 /**
  * Called when an error occurs, takes in an error object
