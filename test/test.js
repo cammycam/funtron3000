@@ -20,15 +20,15 @@ test("sidebar menu populated", function () {
 
 # Tests that there is an interest list
 test("interest list", function () {
-  ok( 0==1);
+  ok( 0==1, 'there is an interest list');
 });
 
 # Tests that interests are clickable
 test("interests clickable",function (){
-   ok(0==1);
+   ok(0==1,'interests are clickable');
 });
 
 # Tests that relevent location populate the map
 test("locations populate map", function () {
-   ok(0==1);
+   ok(0==1, 'map populated');
 });
