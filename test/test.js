@@ -1,34 +1,34 @@
-# Name of test group
+// Name of tset group
 module('basic tests');
 
-# Tests that the map appears
+// Tests that the map appears
 test("map appears", function () {
     ok($('.gm-style').get(0), 'Map is there');
 });
 
-# Tests that the sidebar is there, and can toggle
+// Tests that the sidebar is there, and can toggle
 test("sidebar", function () {
     ok($('.ui-panel-closed').get(0), 'sidebar closed');
     $('#toggle-panel-button').click();
     ok($('.ui-panel-open').get(0), 'sidebar open');
 });
 
-# Tests that there are list item in the sidebar
+// Tests that there are list item in the sidebar
 test("sidebar menu populated", function () {
     ok($('#sidebar-panel').find('li'), 'menu is populated');
 });
 
-# Tests that there is an interest list
+// Tests that there is an interest list
 test("interest list", function () {
-  ok( 0==1, 'there is an interest list');
+  ok( 0, 'there is an interest list');
 });
 
-# Tests that interests are clickable
+// Tests that interests are clickable
 test("interests clickable",function (){
-   ok(0==1,'interests are clickable');
+   ok(0,'interests are clickable');
 });
 
-# Tests that relevent location populate the map
+// Tests that relevent location populate the map
 test("locations populate map", function () {
-   ok(0==1, 'map populated');
+   ok(0, 'map populated');
 });
