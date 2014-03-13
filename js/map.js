@@ -10,11 +10,13 @@
  * 
  * @method initialize
  **/
+ var map;
+ var infowindow;
+ 
 function initialize() {
-
     //get location
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(drawMap, showError);
+        navigator.geolocation.watchPosition(drawMap, showError);
     } else {
                 /**
                  * Fired when the browser does not support geolocation
@@ -37,16 +39,25 @@ function drawMap(position) {
      * 
      * @attribute map
      **/
-    var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+
+	 var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         map = new google.maps.Map($('#map-canvas').get(0), {
             center: userPosition,
             zoom: 15
-        }),
+        });
     //spawn marker at dude/dudette's position
-        userMarker = new google.maps.Marker({
+        var userMarker = new google.maps.Marker({
             position: userPosition,
-            map: map
         }).setMap(map);
+		
+	var request = {
+		location: userPosition,
+		radius: 5000,
+		types: ['store']
+	  };
+	 infowindow = new google.maps.InfoWindow();
+	 var service = new google.maps.places.PlacesService(map);
+	 service.nearbySearch(request, callback);
 }
 /**
  * Called when an error occurs, takes in an error object
@@ -95,5 +106,26 @@ function showError(error) {
         break;
     }
 }
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }  
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    position: place.geometry.location
+  });
+  marker.setMap(map);
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+
 
 google.maps.event.addDomListener(window, 'load', initialize);
