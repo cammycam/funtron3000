@@ -1,34 +1,34 @@
-// Name of tset group
-module('basic tests');
+// Name of test group
+module('Acceptance Tests');
 
 // Tests that the map appears
-test("map appears", function () {
-    ok($('.gm-style').get(0), 'Map is there');
+test("Map appears", function () {
+    ok($('#map-canvas').get(0));
 });
 
 // Tests that the sidebar is there, and can toggle
-test("sidebar", function () {
-    ok($('.ui-panel-closed').get(0), 'sidebar closed');
+test("Sidebar toggles", function () {
+    ok($('.ui-panel-closed').get(0));
     $('#toggle-panel-button').click();
-    ok($('.ui-panel-open').get(0), 'sidebar open');
+    ok($('.ui-panel-open').get(0));
 });
 
 // Tests that there are list item in the sidebar
-test("sidebar menu populated", function () {
-    ok($('#sidebar-panel').find('li'), 'menu is populated');
+test("Sidebar menu populated", function () {
+    ok($('#sidebar-panel').find('li'));
 });
 
 // Tests that there is an interest list
-test("interest list", function () {
-  ok( 0, 'there is an interest list');
+test("Interest list", function () {
+    ok(0, 'there is an interest list');
 });
 
 // Tests that interests are clickable
-test("interests clickable",function (){
-   ok(0,'interests are clickable');
+test("Interests are clickable", function () {
+    notEqual($('#interests-link').attr('href'), '#');
 });
 
 // Tests that relevent location populate the map
-test("locations populate map", function () {
-   ok(0, 'map populated');
+test("Locations populate map", function () {
+    ok(0, 'map populated');
 });
