@@ -10,13 +10,13 @@
  * 
  * @method initialize
  **/
-var map;
-var infowindow;
+var map, userMarker, infowindow;
 
 function initialize() {
     //get location
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(drawMap, showError);
+		drawMap();
+        navigator.geolocation.watchPosition(changePosition, showError);
     } else {
                 /**
                  * Fired when the browser does not support geolocation
@@ -53,7 +53,7 @@ function callback(results, status) {
  * @method drawMap
  * @param {Object} a set of current coordinates
 **/
-function drawMap(position) {
+function drawMap() {
     /**
      * The Map that is later put on screen
      * 
@@ -66,10 +66,10 @@ function drawMap(position) {
         zoom: 15
     });
     //spawn marker at dude/dudette's position
-    var userMarker = new google.maps.Marker({
+     userMarker = new google.maps.Marker({
             position: userPosition
-        }).setMap(map),
-        request = {
+        }).setMap(map);
+    var request = {
             location: userPosition,
             radius: 5000,
             types: ['store']
@@ -78,6 +78,15 @@ function drawMap(position) {
     infowindow = new google.maps.InfoWindow();
     service.nearbySearch(request, callback);
 }
+
+function changePosition(position) {
+	userMarker.setMap(null);
+	var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	userMarker = new google.maps.Marker({
+            position: userPosition
+        }).setMap(map);
+}
+
 /**
  * Called when an error occurs, takes in an error object
  * 
