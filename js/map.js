@@ -15,7 +15,7 @@ var map, userMarker, infowindow;
 function initialize() {
     //get location
     if (navigator.geolocation) {
-		drawMap();
+		navigator.geolocation.getPosition(drawMap, showError);
         navigator.geolocation.watchPosition(changePosition, showError);
     } else {
                 /**
@@ -53,7 +53,7 @@ function callback(results, status) {
  * @method drawMap
  * @param {Object} a set of current coordinates
 **/
-function drawMap() {
+function drawMap(position) {
     /**
      * The Map that is later put on screen
      * 
