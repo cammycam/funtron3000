@@ -15,7 +15,7 @@ var map, userMarker, infowindow;
 function initialize() {
     //get location
     if (navigator.geolocation) {
-		navigator.geolocation.getPosition(drawMap, showError);
+		navigator.geolocation.getCurrentPosition(drawMap, showError);
         navigator.geolocation.watchPosition(changePosition, showError);
     } else {
                 /**
