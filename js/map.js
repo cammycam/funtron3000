@@ -10,41 +10,18 @@
  * 
  * @method initialize
  **/
-var map, userMarker, infowindow;
-
+ var map;
+ var infowindow;
+ var userPosition;
+ var userMarker;
+ var placeMarkers;
+ 
 function initialize() {
     //get location
-    if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(drawMap, showError);
-        navigator.geolocation.watchPosition(changePosition, showError);
-    } else {
-                /**
-                 * Fired when the browser does not support geolocation
-                 * 
-                 * @event error.NOT_SUPPORTED
-                 **/
-        $('#map-canvas').html("<p>Your browser does not support geolocation.</p>");
-    }
-}
-
-function createMarker(place) {
-    var marker = new google.maps.Marker({
-            position: place.geometry.location
-        });
-    marker.setMap(map);
-    google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-    });
-}
-
-function callback(results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-        var i;
-        for (i = 0; i < results.length; i += 1) {
-            createMarker(results[i]);
-        }
-    }
+    if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(drawMap, showError);
+    else
+      $('#map-canvas').html("<p>Your browser does not support geolocation.</p>");
 }
 
 /**
@@ -60,31 +37,27 @@ function drawMap(position) {
      * @attribute map
      **/
 
-    var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    map = new google.maps.Map($('#map-canvas').get(0), {
-        center: userPosition,
-        zoom: 15
-    });
+	 userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        map = new google.maps.Map($('#map-canvas').get(0), {
+            center: userPosition,
+            zoom: 15
+        });
     //spawn marker at dude/dudette's position
-     userMarker = new google.maps.Marker({
-            position: userPosition
-        }).setMap(map);
-    var request = {
-            location: userPosition,
-            radius: 5000,
-            types: ['store']
-        },
-        service = new google.maps.places.PlacesService(map);
-    infowindow = new google.maps.InfoWindow();
-    service.nearbySearch(request, callback);
+    userMarker = new google.maps.Marker({
+          position: userPosition
+        });
+    userMarker.setMap(map);
+
+    navigator.geolocation.watchPosition(changePosition, showError);
 }
 
 function changePosition(position) {
-	userMarker.setMap(null);
-	var userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	userMarker = new google.maps.Marker({
-            position: userPosition
-        }).setMap(map);
+  userMarker.setMap(null);
+  userPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  userMarker = new google.maps.Marker({
+          position: userPosition
+        });
+  userMarker.setMap(map);
 }
 
 /**
@@ -134,5 +107,48 @@ function showError(error) {
         break;
     }
 }
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    placeMarkers = new Array();
+    for (var i = 0; i < results.length; i++) {
+      placeMarkers[i] = createMarker(results[i]);
+    }
+  }  
+}
+
+function interestClick(query){
+
+  if (placeMarkers != null)   
+    for (var i = 0; i < placeMarkers.length; i++) {
+      placeMarkers[i].setMap(null);
+    }
+
+  var request = {
+    location: userPosition,
+    radius: 500,
+    query: query
+    };
+
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.textSearch(request, callback);
+
+}
+
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    position: place.geometry.location
+  });
+  marker.setMap(map);
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+  return marker;
+}
+
 
 google.maps.event.addDomListener(window, 'load', initialize);
