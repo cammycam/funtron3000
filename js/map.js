@@ -63,7 +63,7 @@ function showError(error) {
           **/
         $('#map-canvas').html("<p>An unknown error occurred.</p>");
         break;
-    case default:
+    default:
         $('#map-canvas').html("<p>Non-specific error occurred.</p>");
     }
 }
