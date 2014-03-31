@@ -19,22 +19,32 @@ module.exports = function (grunt) {
         qunit: {
             compile: ['test/**/*.html']
         },
+        concat: {
+			compile: {
+				files: {
+					'js/core.js': ['js/jquery-2.0.2.min.js', 
+					'js/jquery.mobile-1.4.0.min.js', 
+					'js/map.js', 'js/sidebar.js']
+				}
+			}
+		},
         uglify: {
             compile: {
                 files: {
-                    'js/out.min.js': ['js/*.js']
+                    'js/core.min.js': ['js/core.js']
                 }
             }
         },
-        clean: ['docs', 'js/out.min.js']
+        clean: ['docs', 'js/core*.js']
     });
 
     // Load the plugins
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     // Default task(s).
-    grunt.registerTask('default', ['yuidoc', 'qunit', 'uglify']);
+    grunt.registerTask('default', ['yuidoc', 'concat', 'uglify', 'qunit']);
 };
