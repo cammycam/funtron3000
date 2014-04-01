@@ -20,14 +20,14 @@ module.exports = function (grunt) {
             compile: ['test/**/*.html']
         },
         concat: {
-			compile: {
-				files: {
-					'js/core.js': ['js/jquery-2.0.2.min.js', 
-					'js/jquery.mobile-1.4.0.min.js', 
-					'js/map.js', 'js/sidebar.js']
-				}
-			}
-		},
+            compile: {
+                files: {
+                    'js/core.js': ['js/jquery-2.0.2.min.js',
+                        'js/jquery.mobile-1.4.0.min.js',
+                        'js/map.js', 'js/sidebar.js']
+                }
+            }
+        },
         uglify: {
             compile: {
                 files: {
