@@ -14,7 +14,7 @@ var map;
 var infowindow;
 var userPosition;
 var userMarker;
-var placeMarkers;
+var placeMarkers = null;
 var i;
 
 /**
@@ -135,7 +135,6 @@ function callback(results, status) {
     'use strict';
 
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-        placeMarkers = [];
         for (i = 0; i < results.length; i += 1) {
             placeMarkers[i] = createMarker(results[i]);
         }
@@ -144,12 +143,13 @@ function callback(results, status) {
 
 function interestClick(query) {
     'use strict';
-
     if (placeMarkers !== null) {
         for (i = 0; i < placeMarkers.length; i += 1) {
             placeMarkers[i].setMap(null);
         }
     }
+    
+    placeMarkers = [];
 
     var request = {
         location: userPosition,
