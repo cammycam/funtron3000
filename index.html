@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="js/core.min.js"></script>
 	</head>
 	<body>
+		
 		<div data-role="page" data-theme="b">
 			<div data-role="panel" id="sidebar-panel" data-theme="b" data-display="push">
 				<div data-role="panel-content">
@@ -18,10 +19,12 @@
 						<li><a onclick="interestClick('food')"href="#">Food</a></li>
 						<li><a onclick="interestClick('movies')"href="#">Movies</a></li>
 						<li><a onclick="interestClick('candy')"href="#">Candy</a></li>
+						<li><a onclick="placeVisited()"href="#">Place Visited</a></li>
 					</ul>
 				</div>
 			</div>
 			<div data-role="main" class="ui-content">
+				<div id="topBanner"></div>
 				<a href="#sidebar-panel" id="toggle-panel-button" data-role="button" data-inline="true" data-icon="bars">Toggle Menu</a>
 				<div id="map-canvas"></div>
 				<div id="interestDiv"></div>

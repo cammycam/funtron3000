@@ -16,6 +16,12 @@ var userPosition;
 var userMarker;
 var placeMarkers = null;
 var i;
+var totalPoints = 0;
+var foodPoints = 0;
+var candyPoints = 0;
+var moviePoints = 0;
+var musicPoints = 0;
+var globalQuery;
 
 /**
  * Called when an error occurs, takes in an error object
@@ -105,7 +111,10 @@ function drawMap(position) {
     userMarker.setMap(map);
 
     navigator.geolocation.watchPosition(changePosition, showError);
+	
 }
+
+
 
 function initialize() {
     'use strict';
@@ -121,13 +130,18 @@ function initialize() {
 function createMarker(place) {
     'use strict';
 
+	var contentString = '<a onclick="placeVisited()"href="#">Place Visited</a>';
+	
     var marker = new google.maps.Marker({
             position: place.geometry.location
         });
+		
     marker.setMap(map);
-    google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(place.name).open(map, this);
-    });
+	
+	  google.maps.event.addListener(marker, 'click', function() {
+		infowindow.setContent(contentString);
+		infowindow.open(map, this);
+	  });
     return marker;
 }
 
@@ -148,6 +162,8 @@ function interestClick(query) {
             placeMarkers[i].setMap(null);
         }
     }
+	
+	globalQuery = query;
     
     placeMarkers = [];
 
@@ -159,6 +175,33 @@ function interestClick(query) {
         service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
     infowindow = new google.maps.InfoWindow();
+}
+
+function placeVisited(){
+	'use strict'
+	
+	totalPoints = totalPoints + 10;
+	$('#topBanner').html("Points: " + totalPoints + "<BR>Music Points: " + musicPoints + "<BR>Food Points: " + foodPoints + "<BR>Candy Points: " + candyPoints + "<BR>Movies Points: " + moviePoints + "<BR> Global Query: " + globalQuery);
+		
+	switch(globalQuery){
+		case "music":
+			musicPoints = musicPoints + 10;
+			break;
+		case "food":
+			foodPoints = foodPoints + 10;
+			break;
+		case "candy":
+			candyPoints = candyPoints + 10;
+			break;
+		case "movies":
+			moviesPoints = moviesPoints + 10;
+			break;
+		default:
+			moviesPoints = moviesPoints + 10;
+			break;
+	}
+
+	
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
