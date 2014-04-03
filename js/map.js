@@ -179,7 +179,7 @@ function interestClick(query) {
     infowindow = new google.maps.InfoWindow();
 }
 
-function badgeEarned( badgeType ) {
+function earnBadge( badgeType ) {
 
 }
 
