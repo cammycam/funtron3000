@@ -21,9 +21,13 @@ var foodPoints = 0;
 var candyPoints = 0;
 var moviePoints = 0;
 var musicPoints = 0;
+var musicEarned = false;
+var foodEarned = false;
+var candyEarned = false;
+var movieEarned = false;
 var globalQuery;
 
-const LEVEL_UP = 100;
+const LEVEL_UP = 10000000;
 
 /**
  * Called when an error occurs, takes in an error object
@@ -114,6 +118,8 @@ function drawMap(position) {
 
     navigator.geolocation.watchPosition(changePosition, showError);
 	
+	$('#topBanner').html("Justin M The Traveller");
+	
 }
 
 
@@ -181,39 +187,74 @@ function interestClick(query) {
 
 function earnBadge( badgeType ) {
 
+	var badgeString
+
+	switch(badgeType){
+		case "music":
+			badgeString = '<img src="images/musicBadge.jpg">'
+			musicEarned = true;
+			break;
+		case "food":
+			badgeString = '<img src="images/foodBadge.jpg">';
+			foodEarned = true;
+			break;
+		case "candy":
+			badgeString = '<img src="images/candyBadge.jpg">';
+			candyEarned = true;
+			break;
+		case "movies":
+			badgeString = '<img src="images/movieBadge.jpg">';
+			movieEarned = true;
+			break;
+		default:
+			break;
+    }
+	
 }
 
 function placeVisited(){
 	'use strict'
 	
-	totalPoints = totalPoints + 10;
-	$('#topBanner').html("Points: " + totalPoints + "<BR>Music Points: " + musicPoints + "<BR>Food Points: " + foodPoints + "<BR>Candy Points: " + candyPoints + "<BR>Movies Points: " + moviePoints + "<BR> Global Query: " + globalQuery);
-
+	totalPoints = totalPoints + 1000000;
 
 	switch(globalQuery){
 		case "music":
-			musicPoints = musicPoints + 10;
-      if ( musicPoints > LEVEL_UP )
-        earnBadge(globalQuery);
+			musicPoints = musicPoints + 1000000;
+			  if ( musicPoints >= LEVEL_UP )
+				earnBadge(globalQuery);
 			break;
 		case "food":
-			foodPoints = foodPoints + 10;
-      if ( foodPoints > LEVEL_UP )
-        earnBadge(globalQuery);
+			foodPoints = foodPoints + 1000000;
+			  if ( foodPoints >= LEVEL_UP )
+				earnBadge(globalQuery);
 			break;
 		case "candy":
-			candyPoints = candyPoints + 10;
-      if ( candyPoints > LEVEL_UP )
-        earnBadge(globalQuery);
+			candyPoints = candyPoints + 1000000;
+			  if ( candyPoints >= LEVEL_UP )
+				earnBadge(globalQuery);
 			break;
 		case "movies":
-			moviesPoints = moviesPoints + 10;if ( musicPoint > levelUp )
-      if ( moviesPoints > LEVEL_UP )
-        earnBadge(globalQuery);
+			moviePoints = moviePoints + 1000000;
+			  if ( moviePoints >= LEVEL_UP )
+				earnBadge(globalQuery);
 			break;
 		default:
 			break;
     }
+	
+	var bannerString = "Justin M The Traveller &nbsp; &nbsp; &nbsp; Points: " + totalPoints + "<BR>";
+	
+	if (movieEarned)
+		bannerString += '<img src="images/movieBadge.jpg">';
+	if (musicEarned)
+		bannerString += '<img src="images/musicBadge.jpg">';
+	if (candyEarned)
+		bannerString += '<img src="images/candyBadge.jpg">';
+	if (foodEarned)
+		bannerString += '<img src="images/foodBadge.jpg">';
+	
+	$('#topBanner').html(bannerString);
+	
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
