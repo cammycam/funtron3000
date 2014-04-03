@@ -115,10 +115,10 @@ function drawMap(position) {
         position: userPosition
     });
     userMarker.setMap(map);
+	
+	$('#topBanner').html("<bannerP>Points: " + totalPoints + "</bannerP>");
 
     navigator.geolocation.watchPosition(changePosition, showError);
-	
-	$('#topBanner').html("Justin M The Traveller");
 	
 }
 
@@ -188,22 +188,31 @@ function interestClick(query) {
 function earnBadge( badgeType ) {
 
 	var badgeString
+	var tweetString
 
 	switch(badgeType){
 		case "music":
-			badgeString = '<img src="images/musicBadge.jpg">'
+			tweetString = '<a href="http://ctt.ec/4UTSB"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my music badge from funTron++-! http://ctt.ec/4UTSB+" /></a>';
+			tweetString += "You earned your music badge!";
+			$('#interestDiv').html(tweetString);
 			musicEarned = true;
 			break;
 		case "food":
-			badgeString = '<img src="images/foodBadge.jpg">';
+			tweetString = '<a href="http://ctt.ec/86Zd9"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my food badge from funTron++-! http://ctt.ec/86Zd9+" /></a>';
+			tweetString += "You earned your food badge!";
+			$('#interestDiv').html(tweetString);
 			foodEarned = true;
 			break;
 		case "candy":
-			badgeString = '<img src="images/candyBadge.jpg">';
+			tweetString = '<a href="http://ctt.ec/1E9ta"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my candy badge from funTron++-! http://ctt.ec/1E9ta+" /></a>';
+			tweetString += "You earned your candy badge!";
+			$('#interestDiv').html(tweetString);
 			candyEarned = true;
 			break;
 		case "movies":
-			badgeString = '<img src="images/movieBadge.jpg">';
+			tweetString = '<a href="http://ctt.ec/aM9Hj"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my movie badge from funTron++-! http://ctt.ec/aM9Hj+" /></a>';
+			tweetString += "You earned your movie badge!";
+			$('#interestDiv').html(tweetString);
 			movieEarned = true;
 			break;
 		default:
@@ -214,46 +223,52 @@ function earnBadge( badgeType ) {
 
 function placeVisited(){
 	'use strict'
-	
+	var badgesString = ' '
 	totalPoints = totalPoints + 1000000;
 
 	switch(globalQuery){
 		case "music":
 			musicPoints = musicPoints + 1000000;
-			  if ( musicPoints >= LEVEL_UP )
+			$('#interestDiv').html(' ');
+			  if ( musicPoints == LEVEL_UP ){			  
 				earnBadge(globalQuery);
+				}
 			break;
 		case "food":
 			foodPoints = foodPoints + 1000000;
-			  if ( foodPoints >= LEVEL_UP )
+			$('#interestDiv').html(' ');
+			  if ( foodPoints == LEVEL_UP )			  	
 				earnBadge(globalQuery);
 			break;
 		case "candy":
 			candyPoints = candyPoints + 1000000;
-			  if ( candyPoints >= LEVEL_UP )
+			$('#interestDiv').html(' ');
+			  if ( candyPoints == LEVEL_UP )			  	
 				earnBadge(globalQuery);
 			break;
 		case "movies":
 			moviePoints = moviePoints + 1000000;
-			  if ( moviePoints >= LEVEL_UP )
+			$('#interestDiv').html(' ');
+			  if ( moviePoints == LEVEL_UP )			  	
 				earnBadge(globalQuery);
 			break;
 		default:
 			break;
     }
 	
-	var bannerString = "Justin M The Traveller &nbsp; &nbsp; &nbsp; Points: " + totalPoints + "<BR>";
+	var bannerString = "Points: " + totalPoints + "&nbsp; &nbsp;";
 	
 	if (movieEarned)
-		bannerString += '<img src="images/movieBadge.jpg">';
+		badgesString += '<img src="images/movieBadge.jpg">';
 	if (musicEarned)
-		bannerString += '<img src="images/musicBadge.jpg">';
+		badgesString += '<img src="images/musicBadge.jpg">';
 	if (candyEarned)
-		bannerString += '<img src="images/candyBadge.jpg">';
+		badgesString += '<img src="images/candyBadge.jpg">';
 	if (foodEarned)
-		bannerString += '<img src="images/foodBadge.jpg">';
+		badgesString += '<img src="images/foodBadge.jpg">';
 	
-	$('#topBanner').html(bannerString);
+	$('#topBanner').html("<bannerP>" + bannerString + "</bannerP>");
+	$('#badgesBanner').html("<bannerP>" + badgesString + "</bannerP>");
 	
 }
 

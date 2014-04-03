@@ -1,7 +1,46 @@
+
 #map-canvas {
-	width: 600px;
-	height: 300px;
+	width: 400px;
+	height: 600px;
+	background-color:#000000;
 }
+
+#topBanner {
+	width: 400px;
+	height: 25px;
+	background-color:#FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 25px;
+}
+
+#badgesBanner {
+	width: 400px;
+	height: 50px;
+	background-color:#FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 50px;
+}
+
+#buttonBanner {
+	width: 400px;
+	height: 50px;
+	background-color:#FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 50px;
+}
+
+bannerP{
+	color:#22AADD;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 25px; 
+}
+
 div.gm-style-cc {
        display: none;
 }
+
+
