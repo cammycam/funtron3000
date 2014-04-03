@@ -23,6 +23,8 @@ var moviePoints = 0;
 var musicPoints = 0;
 var globalQuery;
 
+const LEVEL_UP = 100;
+
 /**
  * Called when an error occurs, takes in an error object
  * 
@@ -177,31 +179,41 @@ function interestClick(query) {
     infowindow = new google.maps.InfoWindow();
 }
 
+function badgeEarned( badgeType ) {
+
+}
+
 function placeVisited(){
 	'use strict'
 	
 	totalPoints = totalPoints + 10;
 	$('#topBanner').html("Points: " + totalPoints + "<BR>Music Points: " + musicPoints + "<BR>Food Points: " + foodPoints + "<BR>Candy Points: " + candyPoints + "<BR>Movies Points: " + moviePoints + "<BR> Global Query: " + globalQuery);
-		
+
+
 	switch(globalQuery){
 		case "music":
 			musicPoints = musicPoints + 10;
+      if ( musicPoints > LEVEL_UP )
+        earnBadge(globalQuery);
 			break;
 		case "food":
 			foodPoints = foodPoints + 10;
+      if ( foodPoints > LEVEL_UP )
+        earnBadge(globalQuery);
 			break;
 		case "candy":
 			candyPoints = candyPoints + 10;
+      if ( candyPoints > LEVEL_UP )
+        earnBadge(globalQuery);
 			break;
 		case "movies":
-			moviesPoints = moviesPoints + 10;
+			moviesPoints = moviesPoints + 10;if ( musicPoint > levelUp )
+      if ( moviesPoints > LEVEL_UP )
+        earnBadge(globalQuery);
 			break;
 		default:
-			moviesPoints = moviesPoints + 10;
 			break;
-	}
-
-	
+    }
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
