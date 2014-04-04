@@ -15,19 +15,48 @@ var infowindow;
 var userPosition;
 var userMarker;
 var placeMarkers = null;
+var globalIndex;
 var i;
-var totalPoints = 0;
-var foodPoints = 0;
-var candyPoints = 0;
-var moviePoints = 0;
-var musicPoints = 0;
-var musicEarned = false;
-var foodEarned = false;
-var candyEarned = false;
-var movieEarned = false;
-var globalQuery;
 
+//Constant Values
+var VISITED_POINTS = 1000000;
 var LEVEL_UP = 10000000;
+
+var totalPoints = 0;
+
+var interests = [];
+
+interests[0] = {
+    name: "music",
+    link: "http://ctt.ec/4UTSB",
+    points: 0,
+    image: "musicBadge.jpg",
+    earned: false
+};
+
+interests[1] = {
+    name: "food",
+    link: "http://ctt.ec/86Zd9",
+    points: 0,
+    image: "foodBadge.jpg",
+    earned: false
+};
+
+interests[2] = {
+    name: "movies",
+    link: "http://ctt.ec/aM9Hj",
+    points: 0,
+    image: "movieBadge.jpg",
+    earned: false
+};
+
+interests[3] = {
+    name: "candy",
+    link: "http://ctt.ec/1E9ta",
+    points: 0,
+    image: "candyBadge.jpg",
+    earned: false
+};
 
 /**
  * Called when an error occurs, takes in an error object
@@ -159,7 +188,7 @@ function callback(results, status) {
     }
 }
 
-function interestClick(query) {
+function interestClick(index) {
     'use strict';
     if (placeMarkers !== null) {
         for (i = 0; i < placeMarkers.length; i += 1) {
@@ -167,105 +196,45 @@ function interestClick(query) {
         }
     }
 
-    globalQuery = query;
+    globalIndex = index;
 
     placeMarkers = [];
 
     var request = {
         location: userPosition,
         radius: 500,
-        query: query
+        query: interests[index].name
     },
         service = new google.maps.places.PlacesService(map);
     service.textSearch(request, callback);
     infowindow = new google.maps.InfoWindow();
 }
 
-function earnBadge(badgeType) {
+function earnBadge(badgeIndex) {
     'use strict';
 
-    var tweetString;
-
-    switch (badgeType) {
-    case "music":
-        tweetString = '<a href="http://ctt.ec/4UTSB"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my music badge from funTron++-! http://ctt.ec/4UTSB+" /></a>';
-        tweetString += "You earned your music badge!";
-        $('#interestDiv').html(tweetString);
-        musicEarned = true;
-        break;
-    case "food":
-        tweetString = '<a href="http://ctt.ec/86Zd9"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my food badge from funTron++-! http://ctt.ec/86Zd9+" /></a>';
-        tweetString += "You earned your food badge!";
-        $('#interestDiv').html(tweetString);
-        foodEarned = true;
-        break;
-    case "candy":
-        tweetString = '<a href="http://ctt.ec/1E9ta"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my candy badge from funTron++-! http://ctt.ec/1E9ta+" /></a>';
-        tweetString += "You earned your candy badge!";
-        $('#interestDiv').html(tweetString);
-        candyEarned = true;
-        break;
-    case "movies":
-        tweetString = '<a href="http://ctt.ec/aM9Hj"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my movie badge from funTron++-! http://ctt.ec/aM9Hj+" /></a>';
-        tweetString += "You earned your movie badge!";
-        $('#interestDiv').html(tweetString);
-        movieEarned = true;
-        break;
-    default:
-        break;
-    }
+    var tweetString = '<a href="' + interests[badgeIndex].link + '"><img src="http://clicktotweet.com/img/tweet-graphic-4.png" alt="Tweet: I earned my ' + interests[badgeIndex].name + ' badge from Funtron3000++-! ' + interests[badgeIndex].link + '" /></a>';
+    tweetString += "<p>You earned your " + interests[badgeIndex].name + "  badge!</p>";
+    $('#interestDiv').html(tweetString);
+    interests[badgeIndex].earned = true;
 }
 
 function placeVisited() {
     'use strict';
-    totalPoints = totalPoints + 1000000;
-    var badgesString = ' ',
+    totalPoints += VISITED_POINTS;
+    var badgesString = '',
         bannerString = "Points: " + totalPoints + "&nbsp; &nbsp;";
 
-    switch (globalQuery) {
-    case "music":
-        musicPoints = musicPoints + 1000000;
-        $('#interestDiv').html(' ');
-        if (musicPoints === LEVEL_UP) {
-            earnBadge(globalQuery);
-        }
-        break;
-    case "food":
-        foodPoints = foodPoints + 1000000;
-        $('#interestDiv').html(' ');
-        if (foodPoints === LEVEL_UP) {
-            earnBadge(globalQuery);
-        }
-        break;
-    case "candy":
-        candyPoints = candyPoints + 1000000;
-        $('#interestDiv').html(' ');
-        if (candyPoints === LEVEL_UP) {
-            earnBadge(globalQuery);
-        }
-        break;
-    case "movies":
-        moviePoints = moviePoints + 1000000;
-        $('#interestDiv').html(' ');
-        if (moviePoints === LEVEL_UP) {
-            earnBadge(globalQuery);
-        }
-        break;
-    default:
-        break;
+    interests[globalIndex].points += VISITED_POINTS;
+    $('#interestDiv').html('');
+    if (interests[globalIndex].points === LEVEL_UP) {
+        earnBadge(globalIndex);
     }
 
-    if (movieEarned) {
-        badgesString += '<img src="images/movieBadge.jpg">';
-    }
-    if (musicEarned) {
-        badgesString += '<img src="images/musicBadge.jpg">';
-    }
-    if (candyEarned) {
-        badgesString += '<img src="images/candyBadge.jpg">';
-    }
-    if (foodEarned) {
-        badgesString += '<img src="images/foodBadge.jpg">';
+    for (i = 0; i < interests.length; i += 1) {
+        if (interests[i].earned) {
+            badgesString += '<img src="images/' + interests[i].image + '">';
+        }
     }
     $('#topBanner').html("<bannerP>" + bannerString + "</bannerP>");
     $('#badgesBanner').html("<bannerP>" + badgesString + "</bannerP>");
