@@ -3,15 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Maptron3000 Qunit Test Suite</title>
-		<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.0.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.2.min.css">
 		<link rel="stylesheet" type="test/css" href="lib/qunit-1.14.0.css">
 		<link rel="stylesheet" type="text/css" href="../css/map.css">
-		<script src="../js/jquery-2.0.2.min.js"></script>
-		<script src="../js/jquery.mobile-1.4.0.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-		<script src="lib/qunit-1.14.0.js"></script>
-		<script src="../js/map.js"></script>
-		<script src="test.js"></script>
+		<script type="text/javascript" src="../js/jquery-2.0.2.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.mobile-1.4.2.min.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&amp;sensor=false"></script>
+		<script type="text/javascript" src="lib/qunit-1.14.0.js"></script>
+		<script type="text/javascript" src="../js/map.js"></script>
+		<script type="text/javascript" src="test.js"></script>
 	</head>
 	<body>
 		<div id="qunit"></div>
@@ -21,15 +21,19 @@
 				<div data-role="panel-content">
 					<h3>Menu</h3>
 					<ul id="sidebar-menu">
-						<li><a href="#">Profile</a></li>
-						<li><a href="#">Interests</a></li>
-						<li><a href="#">Badges</a></li>
+						<li><a onclick="interestClick(0)" href="#">Music</a></li>
+						<li><a onclick="interestClick(1)" href="#">Food</a></li>
+						<li><a onclick="interestClick(2)" href="#">Movies</a></li>
+						<li><a onclick="interestClick(3)" href="#">Candy</a></li>
 					</ul>
 				</div>
 			</div>
 			<div data-role="main" class="ui-content">
-				<a href="#sidebar-panel" id="toggle-panel-button" data-role="button" data-inline="true" data-icon="bars">Toggle Menu</a>
+				<div id="topBanner"></div>
+				<div id="buttonBanner"><a href="#sidebar-panel" id="toggle-panel-button" data-role="button" data-inline="true" data-icon="bars" style="height:10px; width: 150px;">Select Interest</a></div>
+				<div id="badgesBanner"></div>
 				<div id="map-canvas"></div>
+				<div id="interestDiv"></div>
 			</div>
 		</div>
 	</body>
